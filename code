@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Generate Text File') {
+            steps {
+                script {
+                    writeFile file: 'output.txt', text: 'This is a generated text file.'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            archiveArtifacts artifacts: 'output.txt', onlyIfSuccessful: true
+        }
+    }
+}
